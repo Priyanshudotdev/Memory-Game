@@ -24,7 +24,3 @@ This project is a simple and fun memory game where players flip cards to find ma
 - **HTML**
 - **CSS**,**Tailwind css**
 - **JavaScript**
-
-## Screenshots
-
-![Memory Game Screenshot](https://i.postimg.cc/28pZJ0rM/Memory-Game1.png)
