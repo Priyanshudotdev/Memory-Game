@@ -8,8 +8,28 @@
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="w-full flex items-center justify-center h-screen bg-black px-8">
-    <main class="gameArea w-auto">
+  <body
+    class="w-full flex items-center justify-center h-screen bg-black flex-col px-8"
+  >
+    <div
+      class="text-lg flex justify-between w-full px-8 md:px-28 text-white pb-[10rem]"
+    >
+      <div class="flex flex-col gap-y-2">
+        <h1 class="tracking-wider font-semibold text-red-500">Player 1</h1>
+        <span class="flex gap-1 md:gap-2 items-center"
+          >Score -
+          <h1 id="player1Score">0</h1></span
+        >
+      </div>
+      <div class="flex flex-col gap-y-2">
+        <h1 class="tracking-wider font-semibold text-blue-500">Player 2</h1>
+        <span class="flex gap-1 md:gap-2 items-center"
+          >Score -
+          <h1 id="player2Score">0</h1></span
+        >
+      </div>
+    </div>
+    <main class="gameArea w-auto text-white">
       <div
         class="card-container w-auto h-auto border rounded-lg border-zinc-600 shadow-sm shadow-white/20 flex gap-x-5 p-3 md:gap-x-6"
       ></div>

@@ -1,81 +1,142 @@
 import {
   cardSectionStyle,
-  cardStyle,
   redStyle,
   blueStyle,
+  newCardData,
 } from "./constants.js";
 
 const cardContainer = document.querySelector(".card-container");
-const gameArea = document.querySelector(".gameArea");
+
+let currentPlayer = "player1";
 
 const player1 = {
-  chances: 2,
   score: 0,
+  highestScore: 0,
+  flipCount: 0,
+  flippedCards: [],
 };
 const player2 = {
-  chances: 2,
   score: 0,
+  highestScore: 0,
+  flipCount: 0,
+  flippedCards: [],
 };
 
-let whosChance = "player1";
+const player1Score = document.getElementById(`player1Score`);
+const player2Score = document.getElementById(`player2Score`);
 
-const flipCard = () => {
-  document.addEventListener("DOMContentLoaded", function () {
-    const cards = document.querySelectorAll(".card");
-
-    cards.forEach((card, index) => {
-      card.addEventListener("click", function () {
-        card.classList.toggle("is-flipped");
-      });
-    });
-  });
-};
-
-const changeTheChance = () => {
-  whosChance = "player2";
-};
-
-const changeTheColor = () => {
-  if (whosChance === "player1") {
-    gameArea.classList.remove(...blueStyle);
-    gameArea.classList.add(...redStyle);
+const nextPlayerTurn = () => {
+  if (currentPlayer === "player1") {
+    player1.flipCount = 0;
+    player1.flippedCards = [];
+    currentPlayer = "player2";
   } else {
-    gameArea.classList.remove(...redStyle);
-    gameArea.classList.add(...blueStyle);
+    player2.flipCount = 0;
+    player2.flippedCards = [];
+    currentPlayer = "player1";
+  }
+  updateContainer();
+};
+
+const updateScore = () => {
+  player1Score.innerText = player1.score;
+  player2Score.innerText = player2.score;
+};
+
+const checkForMatch = (player) => {
+  const [firstCard, secondCard] = player.flippedCards;
+  if (firstCard.dataset.name === secondCard.dataset.name) {
+    player.score += 10;
+    player.flipCount = 0;
+    setTimeout(() => {
+      firstCard.classList.add("is-matched");
+      secondCard.classList.add("is-matched");
+      firstCard.querySelector(".back img")?.remove();
+      secondCard.querySelector(".back img")?.remove();
+      updateScore();
+      updateContainer();
+    }, 1000);
+  } else {
+    setTimeout(() => {
+      firstCard.classList.remove("is-flipped");
+      secondCard.classList.remove("is-flipped");
+      nextPlayerTurn();
+    }, 1000);
+  }
+  player.flippedCards = [];
+};
+
+const updateContainer = () => {
+  if (currentPlayer === "player1") {
+    cardContainer.classList.remove(...blueStyle);
+    cardContainer.classList.add(...redStyle);
+  } else {
+    cardContainer.classList.remove(...redStyle);
+    cardContainer.classList.add(...blueStyle);
   }
 };
 
 (() => {
   const renderBoard = () => {
-    const fragement = document.createDocumentFragment();
+    const fragment = document.createDocumentFragment();
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
       const cardSection = document.createElement("section");
-
       cardSection.classList.add(...cardSectionStyle);
 
-      for (let j = 0; j < 5; j++) {
+      for (let j = 0; j < 4; j++) {
         const card = document.createElement("div");
-
-        card.innerHTML = `<div
-        class="card relative w-[3.2rem] h-[3.2rem] md:w-[4rem] md:h-[4rem]"
-      >
-        <div
-          class="front bg-neutral-200 absolute w-full h-full rounded cursor-pointer"
-        ></div>
-        <div
-          class="back bg-green-500 absolute w-full h-full rounded cursor-pointer"
+        card.innerHTML = `<div id="${j + i * 4}"
+          class="card relative w-[3.2rem] h-[3.2rem] md:w-[4rem] md:h-[4rem]"
         >
-          
-        </div>`;
-
+          <div
+            class="front bg-neutral-200 absolute w-full h-full rounded cursor-pointer"
+          ></div>
+          <div
+            class="back bg-neutral-600 absolute w-full h-full rounded flex items-center justify-center cursor-pointer overflow-hidden "
+          >
+          <img class="w-full h-full" src=${newCardData[j + i * 4].image} />
+          </div>`;
+        if (card.children[0].dataset) {
+          card.children[0].dataset.name = `${newCardData[j + i * 4].name}`;
+        }
         cardSection.appendChild(card);
       }
-      fragement.appendChild(cardSection);
+      fragment.appendChild(cardSection);
     }
-    cardContainer.appendChild(fragement);
-    flipCard();
-    changeTheColor();
+    cardContainer.appendChild(fragment);
+    updateContainer();
   };
+
   renderBoard();
+
+  cardContainer.addEventListener("click", (e) => {
+    const currentCard = e.target.closest(".card");
+
+    if (
+      currentCard &&
+      !currentCard.classList.contains("is-matched") &&
+      !currentCard.classList.contains("is-flipped")
+    ) {
+      if (currentPlayer === "player1") {
+        if (player1.flipCount < 2) {
+          player1.flipCount++;
+          player1.flippedCards.push(currentCard);
+          currentCard.classList.add("is-flipped");
+        }
+        if (player1.flipCount === 2) {
+          checkForMatch(player1);
+        }
+      } else {
+        if (player2.flipCount < 2) {
+          player2.flipCount++;
+          player2.flippedCards.push(currentCard);
+          currentCard.classList.add("is-flipped");
+        }
+        if (player2.flipCount === 2) {
+          checkForMatch(player2);
+        }
+      }
+    }
+  });
 })();

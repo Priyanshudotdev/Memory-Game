@@ -29,3 +29,54 @@ export const imageLinks = [
 export const redStyle = ["shadow-lg", "shadow-red-600/50"];
 
 export const blueStyle = ["shadow-lg", "shadow-blue-600/50"];
+
+const cardData = [
+  {
+    name: "Apple",
+    image: `https://th.bing.com/th/id/OIG3.z0pc0j.yWy9tfzOUN7IB?w=270&h=270&c=6&r=0&o=5&pid=ImgGn`,
+  },
+  {
+    name: "Google",
+    image:
+      "https://th.bing.com/th/id/OIG1.gR9CwqbdkyHizHEeXI4v?w=270&h=270&c=6&r=0&o=5&pid=ImgGn",
+  },
+  {
+    name: "Microsoft",
+    image:
+      "https://th.bing.com/th/id/OIG3.CZzKalFEdjZfASh8LIp2?w=270&h=270&c=6&r=0&o=5&pid=ImgGn",
+  },
+  {
+    name: "Tesla",
+    image:
+      "https://th.bing.com/th/id/OIG2.8lnOsyZRiIZktAH6u0rI?w=270&h=270&c=6&r=0&o=5&pid=ImgGn",
+  },
+  {
+    name: "Netflix",
+    image:
+      "https://th.bing.com/th/id/OIG2.45Zj9baTnbRy.58srocu?w=270&h=270&c=6&r=0&o=5&pid=ImgGn",
+  },
+  {
+    name: "Youtube",
+    image:
+      "https://th.bing.com/th/id/OIG2.MP8JYFD17Im2NnBFzX5p?w=270&h=270&c=6&r=0&o=5&pid=ImgGn",
+  },
+  {
+    name: "Amazon",
+    image:
+      "https://th.bing.com/th/id/OIG3.WVFRG_XUgHnjW35ktZ1y?w=270&h=270&c=6&r=0&o=5&pid=ImgGn",
+  },
+  {
+    name: "Spotify",
+    image:
+      "https://th.bing.com/th/id/OIG1.tC.ssrO0aOGWVUufS.hY?w=270&h=270&c=6&r=0&o=5&pid=ImgGn",
+  },
+];
+
+const newCardData = [...cardData, ...cardData];
+
+for (let i = newCardData.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [newCardData[i], newCardData[j]] = [newCardData[j], newCardData[i]];
+}
+
+export { newCardData };

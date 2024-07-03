@@ -20,6 +20,10 @@
     transform: rotateY(180deg);
 }
 
+.card.is-matched {
+    transform: rotateY(180deg);
+    pointer-events: none;
+}
 
 .front,
 .back {
@@ -31,4 +35,8 @@
 
 .back {
     transform: rotateY(180deg);
+}
+
+.matched {
+    background-color: black;
 }
