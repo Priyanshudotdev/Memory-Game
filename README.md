@@ -18,6 +18,7 @@ This project is a simple and fun memory game where players flip cards to find ma
 3. If the cards match, the player earns 10 points and gets another turn.
 4. If the cards do not match, the cards are flipped back, and the turn passes to the other player.
 5. The game continues until all pairs are found.
+6. You can Resart the game after the all pairs are found.
 
 ## Technologies Used
 
