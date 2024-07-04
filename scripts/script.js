@@ -33,9 +33,11 @@ const matchedCards = [];
 const checkForGameEnd = () => {
   const allCards = document.querySelectorAll(".card");
   if (matchedCards.length === allCards.length) {
-    resultH1.innerText = `Game Over! ${
-      player1.score > player2.score ? "Player 1" : "Player 2"
-    } wins!`;
+    setTimeout(() => {
+      resultH1.innerText = `Game Over! ${
+        player1.score > player2.score ? "Player 1" : "Player 2"
+      } wins!`;
+    }, 1000);
     resultH1.classList.remove("hidden");
     restartBtn.classList.remove("hidden");
     resultDisplaySection.classList.remove("hidden");
