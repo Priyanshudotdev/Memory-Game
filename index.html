@@ -12,7 +12,7 @@
     class="w-full flex items-center justify-center h-screen bg-black flex-col px-8"
   >
     <div
-      class="text-lg flex justify-between w-full px-8 md:px-28 text-white pb-[10rem]"
+      class="text-lg flex justify-between w-full px-8 md:px-28 relative text-white pb-[10rem]"
     >
       <div class="flex flex-col gap-y-2">
         <h1 class="tracking-wider font-semibold text-red-500">Player 1</h1>
@@ -28,6 +28,26 @@
           <h1 id="player2Score">0</h1></span
         >
       </div>
+
+      <section
+        id="resultDisplaySection"
+        class="absolute hidden inset-0 top-[30%] w-[60vw] h-[50%] md:w-[50vw] lg:w-[40vw] z-10 rounded-lg backdrop-sm mx-auto my-auto border shadow-md shadow-white/20 border-neutral-800"
+      >
+        <span
+          class="flex w-full h-full items-center flex-col justify-between py-3 md:py-4"
+        >
+          <h1
+            id="resultH1"
+            class="text-lg font-semibold tracking-wide hidden"
+          ></h1>
+          <button
+            id="restartBtn"
+            class="px-3 py-2 bg-red-600 rounded-lg text-sm active:opacity-[0.4] hover:opacity-[0.6] hidden"
+          >
+            Restart
+          </button>
+        </span>
+      </section>
     </div>
     <main class="gameArea w-auto text-white">
       <div
